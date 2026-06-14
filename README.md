@@ -17,10 +17,21 @@ NVIDIA and/or AMD GPUs — in any browser.
 git clone https://github.com/tentpegbob/popos-temperature-monitor.git
 cd popos-temperature-monitor
 ./setup.sh          # one-time: creates a venv + installs psutil, checks sensors
-./run.sh --open     # starts the server and opens http://localhost:8420
 ```
 
-Press **Ctrl+C** to stop. That's it.
+## Launch
+
+```bash
+./run.sh            # start the dashboard
+./run.sh --open     # …and open it in your browser automatically
+```
+
+Then open **http://localhost:8420** in any browser. Press **Ctrl+C** to stop.
+
+- After the one-time `./setup.sh`, **every later launch is just `./run.sh`**.
+- Prefer no wrapper script? Run the server directly with the venv's Python:
+  **`./.venv/bin/python3 server.py`** (or any Python that has `psutil`). Add
+  `--open`/`--port`/etc. — see [Options](#options) below.
 
 > Developed on Pop!_OS with an AMD Threadripper PRO + NVIDIA & AMD GPUs, but it
 > runs on any modern Linux — Intel/AMD, one GPU, no GPU, etc.
