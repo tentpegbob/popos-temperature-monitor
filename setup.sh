@@ -26,6 +26,14 @@ fi
 ok "python3 — $(python3 --version 2>&1)"
 
 # --- required: psutil, isolated in a project virtualenv ----------------------
+# A venv is only usable if its interpreter runs AND pip is importable. A system
+# Python upgrade (e.g. 3.10 -> 3.12) leaves the old .venv with a python3 symlink
+# that now resolves to the new version, so its pip vanishes ("No module named
+# pip"). Treat any such venv as stale and rebuild from scratch.
+if [[ -e .venv ]] && ! .venv/bin/python3 -m pip --version >/dev/null 2>&1; then
+  no "existing ./.venv is broken (stale Python version?) — rebuilding it"
+  rm -rf .venv
+fi
 if [[ ! -x .venv/bin/python3 ]]; then
   echo "  Creating virtual environment in ./.venv …"
   if ! python3 -m venv .venv 2>/dev/null; then
