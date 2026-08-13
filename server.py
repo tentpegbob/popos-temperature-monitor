@@ -624,7 +624,7 @@ class Collector(threading.Thread):
             snapshot.append({
                 "pid": pid,
                 "name": name,
-                "cpu": round(cpu / self.logical, 1),  # % of whole machine
+                "cpu": round(cpu, 1),  # top convention: 100% = one core
                 "mem_mb": round(rss / (1024 * 1024), 1),
             })
         self._procs = seen
